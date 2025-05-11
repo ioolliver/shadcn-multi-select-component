@@ -107,6 +107,7 @@ export default function Home() {
                       options={frameworksList}
                       onValueChange={field.onChange}
                       defaultValue={field.value}
+                      maxSelect={2}
                       placeholder="Select options"
                       variant="inverted"
                       animation={2}

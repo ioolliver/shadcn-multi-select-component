@@ -98,6 +98,12 @@ interface MultiSelectProps
   maxCount?: number;
 
   /**
+   * Maximum number of items a user can select. When the limit is reached, the other items checkbox will be disabled.
+   * Optional
+   */
+  maxSelect?: number;
+
+  /**
    * The modality of the popover. When set to true, interaction with outside elements
    * will be disabled and only popover content will be visible to screen readers.
    * Optional, defaults to false.
@@ -129,6 +135,7 @@ export const MultiSelect = React.forwardRef<
       defaultValue = [],
       placeholder = "Select options",
       animation = 0,
+      maxSelect,
       maxCount = 3,
       modalPopover = false,
       asChild = false,
@@ -141,6 +148,7 @@ export const MultiSelect = React.forwardRef<
       React.useState<string[]>(defaultValue);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
     const [isAnimating, setIsAnimating] = React.useState(false);
+    const [disableNewSelections, setDisableNewSelections] = React.useState(false);
 
     const handleInputKeyDown = (
       event: React.KeyboardEvent<HTMLInputElement>
@@ -166,6 +174,7 @@ export const MultiSelect = React.forwardRef<
     const handleClear = () => {
       setSelectedValues([]);
       onValueChange([]);
+      setDisableNewSelections(false);
     };
 
     const handleTogglePopover = () => {
@@ -295,6 +304,7 @@ export const MultiSelect = React.forwardRef<
                   key="all"
                   onSelect={toggleAll}
                   className="cursor-pointer"
+                  disabled={!!maxSelect}
                 >
                   <div
                     className={cn(
@@ -315,6 +325,7 @@ export const MultiSelect = React.forwardRef<
                       key={option.value}
                       onSelect={() => toggleOption(option.value)}
                       className="cursor-pointer"
+                      disabled={!!(maxSelect && selectedValues.length >= maxSelect && !isSelected)}
                     >
                       <div
                         className={cn(
