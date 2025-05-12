@@ -148,7 +148,6 @@ export const MultiSelect = React.forwardRef<
       React.useState<string[]>(defaultValue);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
     const [isAnimating, setIsAnimating] = React.useState(false);
-    const [disableNewSelections, setDisableNewSelections] = React.useState(false);
 
     const handleInputKeyDown = (
       event: React.KeyboardEvent<HTMLInputElement>
@@ -174,7 +173,6 @@ export const MultiSelect = React.forwardRef<
     const handleClear = () => {
       setSelectedValues([]);
       onValueChange([]);
-      setDisableNewSelections(false);
     };
 
     const handleTogglePopover = () => {
