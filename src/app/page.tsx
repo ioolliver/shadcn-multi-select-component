@@ -53,6 +53,16 @@ const frameworksList = [
     label: "Astro",
     icon: Icons.fish,
   },
+  {
+    value: "phoenix",
+    label: "Phoenix",
+    icon: Icons.rabbit,
+  },
+  {
+    value: "gin",
+    label: "Gin",
+    icon: Icons.gitHub,
+  },
 ];
 
 const FormSchema = z.object({
