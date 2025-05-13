@@ -86,6 +86,30 @@ interface MultiSelectProps
   placeholder?: string;
 
   /**
+   * Placeholder text to be displayed in the close button.
+   * Optional, defaults to "Close".
+   */
+  closePlaceholder?: string;
+
+  /**
+   * Placeholder text to be displayed in the clear button.
+   * Optional, defaults to "Clear".
+   */
+  clearPlaceholder?: string;
+
+  /**
+   * Placeholder text to be displayed in the clear button.
+   * Optional, defaults to "(Select all)".
+   */
+  selectAllPlaceholder?: string;
+
+  /**
+   * Placeholder text to be displayed in the clear button.
+   * Optional, defaults to "Search...".
+   */
+  searchPlaceholder?: string;
+
+  /**
    * Animation duration in seconds for the visual effects (e.g., bouncing badges).
    * Optional, defaults to 0 (no animation).
    */
@@ -134,6 +158,10 @@ export const MultiSelect = React.forwardRef<
       variant,
       defaultValue = [],
       placeholder = "Select options",
+      clearPlaceholder = "Clear",
+      closePlaceholder = "Close",
+      searchPlaceholder = "Search...",
+      selectAllPlaceholder = "(Select all)",
       animation = 0,
       maxSelect,
       maxCount = 3,
@@ -292,7 +320,7 @@ export const MultiSelect = React.forwardRef<
         >
           <Command>
             <CommandInput
-              placeholder="Search..."
+              placeholder={searchPlaceholder}
               onKeyDown={handleInputKeyDown}
             />
             <CommandList>
@@ -314,7 +342,7 @@ export const MultiSelect = React.forwardRef<
                   >
                     <CheckIcon className="h-4 w-4" />
                   </div>
-                  <span>(Select All)</span>
+                  <span>{selectAllPlaceholder}</span>
                 </CommandItem>
                 {options.map((option) => {
                   const isSelected = selectedValues.includes(option.value);
@@ -352,7 +380,7 @@ export const MultiSelect = React.forwardRef<
                         onSelect={handleClear}
                         className="flex-1 justify-center cursor-pointer"
                       >
-                        Clear
+                        {clearPlaceholder}
                       </CommandItem>
                       <Separator
                         orientation="vertical"
@@ -364,7 +392,7 @@ export const MultiSelect = React.forwardRef<
                     onSelect={() => setIsPopoverOpen(false)}
                     className="flex-1 justify-center cursor-pointer max-w-full"
                   >
-                    Close
+                    {closePlaceholder}
                   </CommandItem>
                 </div>
               </CommandGroup>
